@@ -10,7 +10,6 @@ import scrapy
 
 class WhitebearautosItem(scrapy.Item):
     year = scrapy.Field()
-    #make = scrapy.Field()
     model = scrapy.Field()
     price = scrapy.Field()
     miles = scrapy.Field()

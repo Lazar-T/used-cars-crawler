@@ -14,19 +14,9 @@ import urlparse
 class WhitebearautosspiderSpider(CrawlSpider):
     name = "whitebearautoSpider"
     allowed_domains = ["whitebearautos.com"]
-    start_urls = (
-        'http://www.whitebearautos.com/used-inventory/index.htm?start=0',
-        'http://www.whitebearautos.com/used-inventory/index.htm?start=35',
-        'http://www.whitebearautos.com/used-inventory/index.htm?start=70',
-        'http://www.whitebearautos.com/used-inventory/index.htm?start=105',
-        'http://www.whitebearautos.com/used-inventory/index.htm?start=140',
-        'http://www.whitebearautos.com/used-inventory/index.htm?start=175',
-        'http://www.whitebearautos.com/used-inventory/index.htm?start=210',
-        'http://www.whitebearautos.com/used-inventory/index.htm?start=245',
-        'http://www.whitebearautos.com/used-inventory/index.htm?start=280',
-        'http://www.whitebearautos.com/used-inventory/index.htm?start=315'
+    seed = 'http://www.whitebearautos.com/used-inventory/index.htm?start=%d'
+    start_urls = [seed %i for i in [0, 35, 70, 105, 140, 175, 210, 245, 280, 315]]
 
-    )
 
     def parse(self, response):
         hxs = Selector(response)
@@ -52,7 +42,7 @@ class WhitebearautosspiderSpider(CrawlSpider):
         year_selector = response.xpath('//h1/span/text()')[1].extract()[0:4]
         l.add_xpath('year', year_selector)
         l.add_value('model', response.meta['model'])
-        l.add_xpath('price', '//*[@class="internet"][2]/span/text()[2]')# try adding + "$" and see docs at scrapy 
+        l.add_xpath('price', '//*[@class="internet"][2]/span/text()[2]')
         l.add_value('miles', response.meta['mile'])
         l.add_value('engine', response.meta['engine'])
         vin_selector = response.xpath('//span[text()="VIN"]/following::dd[1]//text()').extract()
@@ -67,5 +57,3 @@ class WhitebearautosspiderSpider(CrawlSpider):
         l.add_value('url_of_the_vehicle_detail_page', response.url)
         l.add_xpath('vehicle_image', '/html/body/div[2]/div[1]/div/div[3]/div[3]/div/div[1]/div/div/div[1]/div[1]/img/@src')
         return l.load_item()
-
-

@@ -4,7 +4,6 @@ used-cars-crawler
 ###About
 
 Crawler built with [Scrapy](http://scrapy.org/). Scrapes [whitebearautos.com](http://www.whitebearautos.com/used-inventory/) and outputs all available used cars.
-Also included csv, json and xml files.
 
 ###Screenshot
 
