@@ -15,8 +15,7 @@ class WhitebearautosspiderSpider(CrawlSpider):
     name = "whitebearautoSpider"
     allowed_domains = ["whitebearautos.com"]
     seed = 'http://www.whitebearautos.com/used-inventory/index.htm?start=%d'
-    start_urls = [seed %i for i in [0, 35, 70, 105, 140, 175, 210, 245, 280, 315]]
-
+    start_urls = [seed % i for i in [0, 35, 70, 105, 140, 175, 210, 245, 280, 315]]
 
     def parse(self, response):
         hxs = Selector(response)
@@ -26,14 +25,12 @@ class WhitebearautosspiderSpider(CrawlSpider):
         engines = hxs.xpath('//*[@class="engineValue"]/text()').extract()
         ext_colors = hxs.xpath('//*[@class="extColorValue"]/text()').extract()
         stock_numbers = hxs.xpath('//*[@class="stockNumberValue"]/text()').extract()
-        
+
         for url, model, mile, engine, ext_color, stock_number in zip(item_selector, models, miles, engines, ext_colors, stock_numbers):
             yield Request(urlparse.urljoin(response.url, url),
                           callback=self.parse_item,
                           meta={'model': model, 'mile': mile, 'engine': engine, 'ext_color': ext_color, 'stock_number': stock_number},
                           )
-
-
 
     def parse_item(self, response):
         l = ItemLoader(item=WhitebearautosItem(), response=response)
