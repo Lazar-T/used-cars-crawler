@@ -13,6 +13,6 @@ Crawler built with [Scrapy](http://scrapy.org/). Scrapes [whitebearautos.com](ht
 ```
 git clone https://github.com/Lazar-T/used-cars-crawler
 cd used-cars-crawler
-scrapy crawl whitebearautoSpider
+scrapy crawl whitebearautos
 ```
 
