@@ -16,6 +16,12 @@ class WhitebearautosspiderSpider(Spider):
     start_urls = ['http://www.whitebearautos.com/inventory/view/Used/']
 
     def parse(self, response):
+        """ Yields each car url and iterates over pages of results.
+
+        @url http://www.whitebearautos.com/inventory/view/Used/
+        @scrapes urls next_page_url
+
+        """
         # process each car link
         urls = response.xpath('//h2/a/@href').extract()
         for url in urls:
@@ -30,6 +36,13 @@ class WhitebearautosspiderSpider(Spider):
         yield request
 
     def parse_car(self, response):
+        """Returns scraped data from each individual car link.
+
+        @url http://www.whitebearautos.com/Certified-2013-Mitsubishi-Lancer-ES-White-Bear-Lake-MN/vd/34254435
+        @scrapes year make model trim price url color interior stock engine
+        @scrapes vin transmission odometer body_style
+
+        """
         l = ItemLoader(item=WhitebearautosItem(), response=response)
         l.default_output_processor = MapCompose(lambda v: v.strip(), replace_escape_chars)
 
