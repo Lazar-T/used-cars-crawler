@@ -1,11 +1,11 @@
 used-cars-crawler
 =================
 
-###About
+### About
 
-Spider built with [Scrapy](http://scrapy.org/). Scrapes [whitebearautos.com](http://i.imgur.com/u2k50cg.png) and gets all available used cars.
+Spider built with [Scrapy](http://scrapy.org/). Scrapes [whitebearautos.com](https://www.whitebearmitsubishi.com) and gets all available used cars.
 
-###Screenshot
+### Screenshot
 
 ![Screenshot](http://i.imgur.com/u2k50cg.png)
 
